@@ -1,0 +1,68 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900">
+  <div class="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-2xl dark:bg-gray-800">
+    <div class="text-center">
+      <svg class="w-12 h-12 mx-auto text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+      </svg>
+      <h2 class="mt-6 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+        Admin Dashboard
+      </h2>
+      <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+        Sign in to your account
+      </p>
+    </div>
+    <form class="mt-8 space-y-6" (ngSubmit)="onSubmit()">
+      <div class="space-y-4 rounded-md shadow-sm">
+        <div>
+          <label for="email-address" class="sr-only">Email address</label>
+          <input id="email-address" name="email" type="email" [(ngModel)]="email" required
+                 class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
+                 placeholder="Email address">
+        </div>
+        <div>
+          <label for="password" class="sr-only">Password</label>
+          <input id="password" name="password" type="password" [(ngModel)]="password" required
+                 class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
+                 placeholder="Password">
+        </div>
+        <!-- Existing form login button -->
+
+        <button
+          type="button"
+          (click)="loginWithGoogle()"
+          class="mt-4 px-4 py-2 bg-red-500 text-white rounded"
+        >
+          Continue with Google
+        </button>
+
+      </div>
+      
+      
+      @if (errorMessage()) {
+        <div class="p-3 text-sm text-red-700 bg-red-100 rounded-md dark:bg-red-200 dark:text-red-800">
+          <p><b>Login Failed:</b> {{ errorMessage() }}</p>
+          <p class="mt-1 text-xs">Please ensure the backend server is running and configured correctly.</p>
+        </div>
+      }
+
+      <div>
+        <button type="submit" [disabled]="isLoading()"
+                class="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-indigo-400 disabled:cursor-not-allowed">
+          @if (isLoading()) {
+            <svg class="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span>Signing in...</span>
+          } @else {
+            <span>Sign in</span>
+          }
+        </button>
+      </div>
+      <div class="text-xs text-center text-gray-500 space-y-1">
+        <!-- <p>Admin: <code class="px-1 py-0.5 font-mono bg-gray-200 rounded dark:bg-gray-700">alice@example.com</code> / <code class="px-1 py-0.5 font-mono bg-gray-200 rounded dark:bg-gray-700">password123</code></p>
+        <p>Viewer: <code class="px-1 py-0.5 font-mono bg-gray-200 rounded dark:bg-gray-700">charlie@example.com</code> / <code class="px-1 py-0.5 font-mono bg-gray-200 rounded dark:bg-gray-700">password123</code></p> -->
+      </div>
+    </form>
+  </div>
+</div>

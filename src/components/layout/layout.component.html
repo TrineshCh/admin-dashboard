@@ -1,0 +1,106 @@
+<div class="flex h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+  <!-- Sidebar -->
+  <aside 
+    class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white shadow-lg dark:bg-gray-800 md:relative md:mt-0 transition-transform duration-200 ease-in-out"
+    [class.translate-x-0]="sidebarOpen()"
+    [class.-translate-x-full]="!sidebarOpen()"
+    [class.md:translate-x-0]="true">
+    <div class="py-4 text-gray-500 dark:text-gray-400">
+      <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
+        Admin Panel
+      </a>
+      <ul class="mt-6">
+        <li class="relative px-6 py-3">
+          <a #dashboardIsActive="routerLinkActive" routerLink="/dashboard" routerLinkActive="text-indigo-600 dark:text-indigo-400" [routerLinkActiveOptions]="{exact: true}"
+             class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+            <span class="absolute inset-y-0 left-0 w-1 bg-indigo-600 rounded-tr-lg rounded-br-lg" [class.hidden]="!dashboardIsActive.isActive"></span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+            <span class="ml-4">Dashboard</span>
+          </a>
+        </li>
+        @if (currentUser()?.role === 'Admin') {
+        <li class="relative px-6 py-3">
+          <a #usersIsActive="routerLinkActive" routerLink="/users" routerLinkActive="text-indigo-600 dark:text-indigo-400"
+             class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+            <span class="absolute inset-y-0 left-0 w-1 bg-indigo-600 rounded-tr-lg rounded-br-lg" [class.hidden]="!usersIsActive.isActive"></span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M15 21a6 6 0 00-9-5.197M15 21a6 6 0 006-6v-1a3 3 0 00-3-3H9a3 3 0 00-3 3v1a6 6 0 006 6z"></path></svg>
+            <span class="ml-4">Users</span>
+          </a>
+        </li>
+        <li class="relative px-6 py-3">
+          <a #contentIsActive="routerLinkActive" routerLink="/content" routerLinkActive="text-indigo-600 dark:text-indigo-400"
+             class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+            <span class="absolute inset-y-0 left-0 w-1 bg-indigo-600 rounded-tr-lg rounded-br-lg" [class.hidden]="!contentIsActive.isActive"></span>
+            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+            <span class="ml-4">Content</span>
+          </a>
+        </li>
+        }
+        <li class="relative px-6 py-3">
+          <a #reportsIsActive="routerLinkActive" routerLink="/reports" routerLinkActive="text-indigo-600 dark:text-indigo-400"
+             class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+            <span class="absolute inset-y-0 left-0 w-1 bg-indigo-600 rounded-tr-lg rounded-br-lg" [class.hidden]="!reportsIsActive.isActive"></span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V7a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            <span class="ml-4">Users</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <div class="flex flex-col flex-1 w-full">
+    <!-- Header -->
+    <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
+      <div class="container flex items-center justify-between h-full px-6 mx-auto text-indigo-600 dark:text-indigo-300">
+        <!-- Mobile hamburger -->
+        <button class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-indigo" (click)="toggleSidebar()">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+          </svg>
+        </button>
+        <!-- Search input -->
+        <div class="flex justify-center flex-1 lg:mr-32">
+          <div class="relative w-full max-w-xl mr-6 focus-within:text-indigo-500">
+            <div class="absolute inset-y-0 flex items-center pl-2">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <input class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-indigo-300 focus:outline-none focus:shadow-outline-indigo form-input" type="text" placeholder="Search..." aria-label="Search" />
+          </div>
+        </div>
+        <ul class="flex items-center flex-shrink-0 space-x-6">
+          <!-- Profile dropdown -->
+          <li class="relative">
+             @if(currentUser(); as user) {
+                <div class="flex items-center space-x-2">
+                   <!-- <span class="inline-block h-8 w-8 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700">
+                    <svg class="h-full w-full text-gray-400 dark:text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                  </span> -->
+                  <!-- <div class="font-medium text-sm">
+                      <div>{{ user.name }}</div>
+                      <div class="text-xs text-gray-500 dark:text-gray-400">{{ user.role }}</div>
+                  </div> -->
+                </div>
+             }
+          </li>
+          <li>
+            <button (click)="logout()" class="flex items-center text-sm font-medium text-gray-600 transition-colors duration-150 hover:text-indigo-800 dark:text-gray-400 dark:hover:text-gray-200" title="Log out">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+              <span class="hidden md:inline">Log out</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="h-full overflow-y-auto">
+      <div class="container px-6 py-8 mx-auto">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </div>
+</div>

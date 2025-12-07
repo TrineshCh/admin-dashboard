@@ -1,0 +1,40 @@
+<h2 class="my-6 text-3xl font-semibold text-gray-700 dark:text-gray-200">
+  Dashboard
+</h2>
+
+<!-- Stat Cards -->
+<div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+  @for (metric of metrics(); track metric.title) {
+    <app-stats-card [metric]="metric"></app-stats-card>
+  } @empty {
+    @for (i of [1, 2, 3, 4]; track i) {
+      <div class="animate-pulse flex items-center p-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
+        <div class="p-3 mr-4 bg-gray-300 rounded-full dark:bg-gray-700 h-12 w-12"></div>
+        <div class="flex-1 space-y-2">
+            <div class="w-3/4 h-4 bg-gray-300 rounded dark:bg-gray-700"></div>
+            <div class="w-1/2 h-6 bg-gray-300 rounded dark:bg-gray-700"></div>
+        </div>
+      </div>
+    }
+  }
+</div>
+
+<!-- Additional Info Section -->
+<div class="grid gap-6 mb-8 lg:grid-cols-3">
+   <div class="min-w-0 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800 lg:col-span-1">
+    <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
+      User Role Distribution
+    </h4>
+    @if (roleDistributionData().length > 0) {
+      <app-d3-pie-chart [data]="roleDistributionData()"></app-d3-pie-chart>
+    } @else {
+      <div class="w-full h-80 bg-gray-200 rounded-md animate-pulse dark:bg-gray-700"></div>
+    }
+  </div>
+  <div class="min-w-0 p-4 bg-white rounded-lg shadow-md dark:bg-gray-800 lg:col-span-2">
+    <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
+      Recent Users
+    </h4>
+    <app-recent-users [users]="recentUsers()"></app-recent-users>
+  </div>
+</div>
